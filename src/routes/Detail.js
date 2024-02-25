@@ -28,6 +28,11 @@ function Detail() {
       ) : (
         <div>
           <h1>{character[0].name}</h1>
+          {character[0].description ? (
+            <p>{character[0].description}</p>
+          ) : (
+            'No Description'
+          )}
         </div>
       )}
     </div>

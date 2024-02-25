@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import Charater from '../components/Charater';
-import styles from './Home.module.css';
+import Character from '../components/Character';
 
 function Home() {
   const [loading, setLoading] = useState(true);
@@ -28,14 +27,14 @@ function Home() {
         <h1>Loading...</h1>
       ) : (
         <div>
-          {charaters.map((character) => {
-            <Charater
+          {charaters.map((character) => (
+            <Character
               key={character.id}
               id={character.id}
-              name={character.name}
               coverImg={character.thumbnail.path}
-            />;
-          })}
+              name={character.name}
+            />
+          ))}
         </div>
       )}
     </div>
