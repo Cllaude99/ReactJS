@@ -1,42 +1,41 @@
 import { useEffect, useState } from 'react';
-import Movie from '../components/Movie';
+import Charater from '../components/Charater';
 import styles from './Home.module.css';
 
 function Home() {
   const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
+  const [charaters, setCharacters] = useState([]);
 
-  const getMovies = async () => {
+  const getCharacters = async () => {
     const json = await (
       await fetch(
-        `https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year`
+        `https://marvel-proxy.nomadcoders.workers.dev/v1/public/characters?limit=50&orderBy=modified&series=24229,1058,2023`
       )
     ).json();
-    setMovies(json.data.movies);
+    setCharacters(json.data.results);
     setLoading(false);
   };
 
   useEffect(() => {
-    getMovies();
+    getCharacters();
   }, []);
 
+  console.log(charaters);
+
   return (
-    <div className={styles.container}>
+    <div>
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        <div className={styles.movies}>
-          {movies.map((movie) => (
-            <Movie
-              key={movie.id}
-              id={movie.id}
-              year={movie.year}
-              coverImg={movie.medium_cover_image}
-              title={movie.title}
-              summary={movie.summary}
-              genres={movie.genres}
-            />
-          ))}
+        <div>
+          {charaters.map((character) => {
+            <Charater
+              key={character.id}
+              id={character.id}
+              name={character.name}
+              coverImg={character.thumbnail.path}
+            />;
+          })}
         </div>
       )}
     </div>
